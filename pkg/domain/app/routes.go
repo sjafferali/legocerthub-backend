@@ -18,7 +18,7 @@ func (app *Application) routes() http.Handler {
 	app.makeHandle(http.MethodPut, apiUrlPath+"/v1/auth/changepassword", app.auth.ChangePassword)
 
 	// app
-	app.makeSecureHandle(http.MethodHead, apiUrlPath+"/status", app.statusHandler)
+	app.makeHandle(http.MethodHead, apiUrlPath+"/status", app.statusHandler)
 	app.makeSecureHandle(http.MethodGet, apiUrlPath+"/status", app.statusHandler)
 	app.makeSecureHandle(http.MethodGet, apiUrlPath+"/v1/log", app.viewCurrentLogHandler)
 	app.makeSecureHandle(http.MethodGet, apiUrlPath+"/v1/logs", app.downloadLogsHandler)
