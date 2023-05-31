@@ -19,63 +19,63 @@ func (app *Application) routes() http.Handler {
 
 	// app
 	app.makeHandle(http.MethodHead, apiUrlPath+"/status", app.statusHandler)
-	app.makeSecureHandle(http.MethodGet, apiUrlPath+"/status", app.statusHandler)
-	app.makeSecureHandle(http.MethodGet, apiUrlPath+"/v1/log", app.viewCurrentLogHandler)
-	app.makeSecureHandle(http.MethodGet, apiUrlPath+"/v1/logs", app.downloadLogsHandler)
+	app.makeHandle(http.MethodGet, apiUrlPath+"/status", app.statusHandler)
+	app.makeHandle(http.MethodGet, apiUrlPath+"/v1/log", app.viewCurrentLogHandler)
+	app.makeHandle(http.MethodGet, apiUrlPath+"/v1/logs", app.downloadLogsHandler)
 
 	// updater
-	app.makeSecureHandle(http.MethodGet, apiUrlPath+"/v1/app/new-version", app.updater.GetNewVersionInfo)
-	app.makeSecureHandle(http.MethodPost, apiUrlPath+"/v1/app/new-version", app.updater.CheckForNewVersion)
+	app.makeHandle(http.MethodGet, apiUrlPath+"/v1/app/new-version", app.updater.GetNewVersionInfo)
+	app.makeHandle(http.MethodPost, apiUrlPath+"/v1/app/new-version", app.updater.CheckForNewVersion)
 
 	// private_keys
-	app.makeSecureHandle(http.MethodGet, apiUrlPath+"/v1/privatekeys", app.keys.GetAllKeys)
-	app.makeSecureHandle(http.MethodGet, apiUrlPath+"/v1/privatekeys/:id", app.keys.GetOneKey)
-	app.makeSecureHandle(http.MethodGet, apiUrlPath+"/v1/privatekeys/:id/download", app.keys.DownloadOneKey)
+	app.makeHandle(http.MethodGet, apiUrlPath+"/v1/privatekeys", app.keys.GetAllKeys)
+	app.makeHandle(http.MethodGet, apiUrlPath+"/v1/privatekeys/:id", app.keys.GetOneKey)
+	app.makeHandle(http.MethodGet, apiUrlPath+"/v1/privatekeys/:id/download", app.keys.DownloadOneKey)
 
-	app.makeSecureHandle(http.MethodPost, apiUrlPath+"/v1/privatekeys", app.keys.PostNewKey)
-	app.makeSecureHandle(http.MethodPost, apiUrlPath+"/v1/privatekeys/:id/apikey", app.keys.StageNewApiKey)
-	app.makeSecureHandle(http.MethodDelete, apiUrlPath+"/v1/privatekeys/:id/apikey", app.keys.RemoveOldApiKey)
+	app.makeHandle(http.MethodPost, apiUrlPath+"/v1/privatekeys", app.keys.PostNewKey)
+	app.makeHandle(http.MethodPost, apiUrlPath+"/v1/privatekeys/:id/apikey", app.keys.StageNewApiKey)
+	app.makeHandle(http.MethodDelete, apiUrlPath+"/v1/privatekeys/:id/apikey", app.keys.RemoveOldApiKey)
 
-	app.makeSecureHandle(http.MethodPut, apiUrlPath+"/v1/privatekeys/:id", app.keys.PutKeyUpdate)
+	app.makeHandle(http.MethodPut, apiUrlPath+"/v1/privatekeys/:id", app.keys.PutKeyUpdate)
 
-	app.makeSecureHandle(http.MethodDelete, apiUrlPath+"/v1/privatekeys/:id", app.keys.DeleteKey)
+	app.makeHandle(http.MethodDelete, apiUrlPath+"/v1/privatekeys/:id", app.keys.DeleteKey)
 
 	// acme_accounts
-	app.makeSecureHandle(http.MethodGet, apiUrlPath+"/v1/acmeaccounts", app.accounts.GetAllAccounts)
-	app.makeSecureHandle(http.MethodGet, apiUrlPath+"/v1/acmeaccounts/:id", app.accounts.GetOneAccount)
+	app.makeHandle(http.MethodGet, apiUrlPath+"/v1/acmeaccounts", app.accounts.GetAllAccounts)
+	app.makeHandle(http.MethodGet, apiUrlPath+"/v1/acmeaccounts/:id", app.accounts.GetOneAccount)
 
-	app.makeSecureHandle(http.MethodPost, apiUrlPath+"/v1/acmeaccounts", app.accounts.PostNewAccount)
+	app.makeHandle(http.MethodPost, apiUrlPath+"/v1/acmeaccounts", app.accounts.PostNewAccount)
 
-	app.makeSecureHandle(http.MethodPut, apiUrlPath+"/v1/acmeaccounts/:id", app.accounts.PutNameDescAccount)
-	app.makeSecureHandle(http.MethodPut, apiUrlPath+"/v1/acmeaccounts/:id/email", app.accounts.ChangeEmail)
-	app.makeSecureHandle(http.MethodPut, apiUrlPath+"/v1/acmeaccounts/:id/key-change", app.accounts.RolloverKey)
+	app.makeHandle(http.MethodPut, apiUrlPath+"/v1/acmeaccounts/:id", app.accounts.PutNameDescAccount)
+	app.makeHandle(http.MethodPut, apiUrlPath+"/v1/acmeaccounts/:id/email", app.accounts.ChangeEmail)
+	app.makeHandle(http.MethodPut, apiUrlPath+"/v1/acmeaccounts/:id/key-change", app.accounts.RolloverKey)
 
-	app.makeSecureHandle(http.MethodPost, apiUrlPath+"/v1/acmeaccounts/:id/new-account", app.accounts.NewAcmeAccount)
-	app.makeSecureHandle(http.MethodPost, apiUrlPath+"/v1/acmeaccounts/:id/deactivate", app.accounts.Deactivate)
+	app.makeHandle(http.MethodPost, apiUrlPath+"/v1/acmeaccounts/:id/new-account", app.accounts.NewAcmeAccount)
+	app.makeHandle(http.MethodPost, apiUrlPath+"/v1/acmeaccounts/:id/deactivate", app.accounts.Deactivate)
 
-	app.makeSecureHandle(http.MethodDelete, apiUrlPath+"/v1/acmeaccounts/:id", app.accounts.DeleteAccount)
+	app.makeHandle(http.MethodDelete, apiUrlPath+"/v1/acmeaccounts/:id", app.accounts.DeleteAccount)
 
 	// certificates
-	app.makeSecureHandle(http.MethodGet, apiUrlPath+"/v1/certificates", app.certificates.GetAllCerts)
-	app.makeSecureHandle(http.MethodGet, apiUrlPath+"/v1/certificates/:certid", app.certificates.GetOneCert)
-	app.makeSecureHandle(http.MethodGet, apiUrlPath+"/v1/certificates/:certid/download", app.certificates.DownloadOneCert)
+	app.makeHandle(http.MethodGet, apiUrlPath+"/v1/certificates", app.certificates.GetAllCerts)
+	app.makeHandle(http.MethodGet, apiUrlPath+"/v1/certificates/:certid", app.certificates.GetOneCert)
+	app.makeHandle(http.MethodGet, apiUrlPath+"/v1/certificates/:certid/download", app.certificates.DownloadOneCert)
 
-	app.makeSecureHandle(http.MethodPost, apiUrlPath+"/v1/certificates", app.certificates.PostNewCert)
-	app.makeSecureHandle(http.MethodPost, apiUrlPath+"/v1/certificates/:certid/apikey", app.certificates.StageNewApiKey)
-	app.makeSecureHandle(http.MethodDelete, apiUrlPath+"/v1/certificates/:certid/apikey", app.certificates.RemoveOldApiKey)
+	app.makeHandle(http.MethodPost, apiUrlPath+"/v1/certificates", app.certificates.PostNewCert)
+	app.makeHandle(http.MethodPost, apiUrlPath+"/v1/certificates/:certid/apikey", app.certificates.StageNewApiKey)
+	app.makeHandle(http.MethodDelete, apiUrlPath+"/v1/certificates/:certid/apikey", app.certificates.RemoveOldApiKey)
 
-	app.makeSecureHandle(http.MethodPut, apiUrlPath+"/v1/certificates/:certid", app.certificates.PutDetailsCert)
+	app.makeHandle(http.MethodPut, apiUrlPath+"/v1/certificates/:certid", app.certificates.PutDetailsCert)
 
-	app.makeSecureHandle(http.MethodDelete, apiUrlPath+"/v1/certificates/:certid", app.certificates.DeleteCert)
+	app.makeHandle(http.MethodDelete, apiUrlPath+"/v1/certificates/:certid", app.certificates.DeleteCert)
 
 	// orders (for certificates)
-	app.makeSecureHandle(http.MethodGet, apiUrlPath+"/v1/orders/currentvalid", app.orders.GetAllValidCurrentOrders)
-	app.makeSecureHandle(http.MethodGet, apiUrlPath+"/v1/certificates/:certid/orders", app.orders.GetCertOrders)
-	app.makeSecureHandle(http.MethodPost, apiUrlPath+"/v1/certificates/:certid/orders", app.orders.NewOrder)
+	app.makeHandle(http.MethodGet, apiUrlPath+"/v1/orders/currentvalid", app.orders.GetAllValidCurrentOrders)
+	app.makeHandle(http.MethodGet, apiUrlPath+"/v1/certificates/:certid/orders", app.orders.GetCertOrders)
+	app.makeHandle(http.MethodPost, apiUrlPath+"/v1/certificates/:certid/orders", app.orders.NewOrder)
 
-	app.makeSecureHandle(http.MethodGet, apiUrlPath+"/v1/certificates/:certid/orders/:orderid/download", app.orders.DownloadOneOrder)
-	app.makeSecureHandle(http.MethodPost, apiUrlPath+"/v1/certificates/:certid/orders/:orderid", app.orders.FulfillExistingOrder)
-	app.makeSecureHandle(http.MethodPost, apiUrlPath+"/v1/certificates/:certid/orders/:orderid/revoke", app.orders.RevokeOrder)
+	app.makeHandle(http.MethodGet, apiUrlPath+"/v1/certificates/:certid/orders/:orderid/download", app.orders.DownloadOneOrder)
+	app.makeHandle(http.MethodPost, apiUrlPath+"/v1/certificates/:certid/orders/:orderid", app.orders.FulfillExistingOrder)
+	app.makeHandle(http.MethodPost, apiUrlPath+"/v1/certificates/:certid/orders/:orderid/revoke", app.orders.RevokeOrder)
 
 	// download keys and certs
 	app.makeDownloadHandle(http.MethodGet, apiUrlPath+"/v1/download/privatekeys/:name", app.download.DownloadKeyViaHeader)
